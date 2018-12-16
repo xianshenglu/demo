@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    input,
+    button {
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+    }
+
+    .file {
+      display: flex;
+      max-width: 500px;
+      min-width: 300px;
+      min-height: 200px;
+      margin: auto;
+      justify-content: center;
+      flex-flow: column;
+      align-items: center;
+      background: #f1f1f1;
+      border: 1px solid #eee;
+    }
+
+    .file__input {
+      display: none;
+    }
+
+    .file__btn {
+      height: 40px;
+      width: 150px;
+      background: #FFD100;
+      line-height: 40px;
+      border-radius: 10px;
+    }
+
+    .file__upload-tip,
+    .file__upload-per {
+      margin-top: 10px;
+    }
+
+    .file__upload-per {
+      align-items: center;
+      display: flex;
+      width: 100%;
+    }
+
+    .file__upload-name {
+      margin-right: 10px;
+      width: 50%;
+      text-align: right;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+    }
+  </style>
+</head>
+
+<body>
+  <form class="file">
+    <input type="file" multiple id="file__input" class="file__input">
+    <button class="file__btn" type="button">上传 ZIP</button>
+    <div class="file__upload-tip">上传进度</div>
+    <div class="file__upload-per">
+      <div class="file__upload-name">文件名称</div>
+      <div class="file__upload-num">0</div>
+      <div class="file__upload-unit">%</div>
+    </div>
+  </form>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    function $(selector) {
+      return Array.from(document.querySelectorAll(selector))
+    }
+    let fileType = ['.zip']
+    let fileSplitSize = 1 * 1024 * 1024
+    let fileBtn = $('.file__btn')[0]
+    let fileInput = $('.file__input')[0]
+    let fileUploadQueue = []
+    fileBtn.addEventListener('click', function (event) {
+      fileInput.click()
+    })
+    fileInput.addEventListener('change', function (event) {
+      let files = Array.from(event.target.file)
+      let errorFileType = files.find(file => !fileType.includes(file.name.split('.').pop()))
+      if (!isFileTypeCorrect) {
+        return alert(`${errorFileType.name}文件类型不正确`)
+      }
+      files.forEach(file => {
+        this.$http.post(baseServiceURL + 'product/create?name=' + file.name.replace(/\.zip$/, '') + "&description=" + this.form.desc + "&sessionID=" + this.userinfo.sessionID + "&resType=2").then((res) => {
+          if (res.body.result) {
+            let pro = genNewProduct(res)
+          }
+        })
+        if (file.size > fileSplitSize) {
+          splitFile(file)
+        } else {
+          let formData = new FormData()
+          formData.append('file', file)
+          fileUploadQueue.push({ formData })
+        }
+      })
+    })
+    genNewProduct(newProInfo) {
+      let id = newProInfo.body.data.id;
+      let data = newProInfo.body.data;
+      let pro = new Product(data.name, data.createdDate.substring(0, 19), data.percent, id, this.userinfo.avater, '上传中');
+      let isExist = this.uploadinglists.find(obj => obj.id === id)
+      if (!isExist) {
+        this.uploadinglists.push(pro);
+      }
+      return pro;
+    }
+    function splitFile(file) {
+
+    }
+    console.log(axios)
+    // axios.post('')
+  </script>
+</body>

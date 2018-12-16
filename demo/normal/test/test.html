@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body,
+      .app {
+        height: 100%;
+      }
+
+      .app {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-flow: column;
+      }
+
+      .app__image {
+        height: 80%;
+        width: auto;
+        flex: 0 0 auto;
+        box-sizing: border-box;
+      }
+      .app__button {
+        height: 50px;
+        width: 200px;
+      }
+    </style>
+    <!--
+      <script src="https://res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/3.0.0/vconsole.min.js"></script>
+      <script>
+        // document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px')
+        var vConsole = new VConsole()
+        console.log('Hello world')
+        console.log(window.innerHeight)
+        window.onscroll = function () {
+          console.log(event.type, window.innerHeight)
+        }
+      </script>
+    -->
+  </head>
+
+  <body>
+    <div id="app" class="app">
+      <img src="./images/hd3.png" class="app__image" id="app__image" />
+      <button class="app__button" id="app__button">next image</button>
+    </div>
+    <script>
+      let app__button = document.getElementById('app__button')
+      let app__image = document.getElementById('app__image')
+      app__button.addEventListener('click', function (event) {
+        let image = new Image()
+        app__image.src = 'transparent.png' // or a transparent image
+        app__image.style.visibility = 'hidden'
+        app__image.style.display = 'none'
+        app__image.src = './images/hd4.png'
+        app__image.onload = function () {
+          setTimeout(() => {
+            app__image.style.display = 'block'
+            app__image.style.visibility = 'visible'
+          })
+        }
+      })
+    </script>
+  </body>
+</html>

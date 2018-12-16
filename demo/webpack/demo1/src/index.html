@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    div {
+      margin: 0;
+      padding: 0;
+    }
+
+    #app {
+      background-color: pink;
+      width: 400px;
+      height: 400px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+  </div>
+  <script>
+    let buildEvent
+    buildEvent = new CustomEvent('build', { detail: { id: 1 } })
+    buildEvent = document.createEvent('Event')
+    buildEvent.initEvent('build', true, true)
+    let app = document.getElementById('app')
+    app.addEventListener('build', cb, { capture: true })
+    function cb() {
+      app.innerHTML = event.type
+    }
+    app.dispatchEvent(buildEvent)
+  </script>
+</body>
+
+</html>

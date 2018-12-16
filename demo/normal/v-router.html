@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
+    <!-- <script src="vue.js"></script> -->
+    <!-- <script src="test.js"></script> -->
+</head>
+
+<body>
+    <div id="app">
+        <p>click to foo or bar.</p>
+        <div>
+            <router-link to="/foo">go to foo</router-link>
+            <router-link to="/bar">go to bar</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+    <script>
+        const foo = Vue.component('foo', { render: h => h('div', 'foo is me') })
+        const bar = Vue.component('bar', { render: h => h('div', 'bar is me') })
+
+        const router = new VueRouter({
+            routes: [
+                { path: '/foo', component: foo },
+                { path: '/bar', component: bar }
+            ]
+        })
+        const app = new Vue({
+            router
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>

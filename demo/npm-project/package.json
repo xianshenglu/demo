@@ -1,0 +1,14 @@
+{
+  "name": "file",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "'xianshenglu' <'xianshenglu@foxmail.com'>",
+  "license": "ISC",
+  "dependencies": {
+    "fontmin": "^0.9.7-beta"
+  }
+}
