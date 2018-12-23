@@ -57,8 +57,10 @@
       // ! mouseUpEl should be document.documentElement or document or window
       // document.body can't catch the mouseup event when you do that out of the window or document
       // while document.documentElement or document or window can catch that
-      let mouseUpEl = window.document.body
-      // ? should be a choice to use mouseLeave, why do we need mouseleave in this case?
+      // When you click the document and release it out of the window or document, document.body will catch the mouseleave event at the moment you move out of body. But window or document would catch at the moment you release the button.
+      let mouseUpEl = window.document
+      // ? why do we need mouseleave in this case?
+      // If you
       let mouseLeaveEl = window.app
       let leftRatio = {
         width: 0.1,
