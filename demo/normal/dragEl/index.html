@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>DragEl</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
       html,
       body {
         width: 100%;
@@ -50,8 +54,11 @@
       let dragEl = window.app__drag_el
       let positionEl = window.app__drag_box
       let mouseMoveEl = window.document
-      let mouseUpEl = window.document
-      // should be a choice to use mouseLeave
+      // ! mouseUpEl should be document.documentElement or document or window
+      // document.body can't catch the mouseup event when you do that out of the window or document
+      // while document.documentElement or document or window can catch that
+      let mouseUpEl = window.document.body
+      // ? should be a choice to use mouseLeave, why do we need mouseleave in this case?
       let mouseLeaveEl = window.app
       let leftRatio = {
         width: 0.1,
@@ -126,11 +133,11 @@
           // In the most cases, we just remove listeners
           mouseMoveEl.removeEventListener('mousemove', mouseMoveCb)
           mouseUpEl.removeEventListener('mouseup', mouseUpCb)
-          mouseLeaveEl.removeEventListener('mouseleave', mouseUpCb)
+          // mouseLeaveEl.removeEventListener('mouseleave', mouseUpCb)
         }
         mouseMoveEl.addEventListener('mousemove', mouseMoveCb)
         mouseUpEl.addEventListener('mouseup', mouseUpCb)
-        mouseLeaveEl.addEventListener('mouseleave', mouseUpCb)
+        // mouseLeaveEl.addEventListener('mouseleave', mouseUpCb)
       }
       dragEl.addEventListener('mousedown', mouseDownCb)
 
