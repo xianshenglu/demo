@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DragEl</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .app {
+        background: #eee;
+        width: 50%;
+        height: 50%;
+        margin: auto;
+        position: relative;
+      }
+      .app__drag_box {
+        background: pink;
+        width: 50%;
+        height: 50%;
+        position: absolute;
+        cursor: move;
+        text-align: center;
+        user-select: none;
+      }
+      .app__drag_el {
+        background-color: #2196f3;
+        padding: 10px;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div class="app__drag_box" id="app__drag_box">
+        <div class="app__drag_el" id="app__drag_el">Click here to move</div>
+        <p>Move this DIV</p>
+      </div>
+    </div>
+    <script>
+      let dragEl = window.app__drag_el
+      let positionEl = window.app__drag_box
+      let mouseMoveEl = window.document
+      let mouseUpEl = window.document
+      // should be a choice to use mouseLeave
+      let mouseLeaveEl = window.document
+      let leftRatio = {
+        width: 0.1,
+        height: 0.1
+      }
+      let oppositeDirectionMap = {
+        left: 'right',
+        top: 'bottom',
+        right: 'left',
+        bottom: 'top'
+      }
+      // use arrow function to keep this
+      const mouseDownCb = mouseDownEvent => {
+        // ensure the click is triggered by left click
+        if (mouseDownEvent.button !== 0) {
+          return
+        }
+        // mousedown logic, such as record the start point
+        let hasRendered = true
+        let prevMouseMoveEvent = mouseDownEvent
+        const mouseMoveCb = mouseMoveEvent => {
+          // avoid unnecessary calculation
+          if (!hasRendered) {
+            return
+          }
+          requestAnimationFrame(() => {
+            mouseMoveCalc(mouseMoveEvent)
+            hasRendered = true
+          })
+          hasRendered = false
+        }
+        // mousemove logic, such as record the current point
+
+        function mouseMoveCalc (mouseMoveEvent) {
+          let prevPos = getElRectsOffset(positionEl, positionEl.offsetParent)
+          let offset = {
+            left: mouseMoveEvent.clientX - prevMouseMoveEvent.clientX,
+            top: mouseMoveEvent.clientY - prevMouseMoveEvent.clientY,
+            right: -(mouseMoveEvent.clientX - prevMouseMoveEvent.clientX),
+            bottom: -(mouseMoveEvent.clientY - prevMouseMoveEvent.clientY)
+          }
+          let targetPos = calcTargetPos(prevPos, offset)
+          positionEl.style.left = targetPos.left + 'px'
+          positionEl.style.top = targetPos.top + 'px'
+          // save the previous position to calculate for next time
+          prevMouseMoveEvent = mouseMoveEvent
+        }
+        function calcTargetPos (prevPos, offset) {
+          let targetPos = {}
+          Object.keys(oppositeDirectionMap).forEach(direction => {
+            let oppositeDirection = oppositeDirectionMap[direction]
+            let targetDirectionOffset = prevPos[direction] + offset[direction]
+            let posElRect = positionEl.getBoundingClientRect()
+            let maxDirectionOffset = ['left', 'right'].includes(direction)
+              ? posElRect.width * (1 - leftRatio.width)
+              : posElRect.height * (1 - leftRatio.height)
+            // if one direction has moved too much, correct this direction and its opposite direction to previous position
+            if (
+              targetDirectionOffset < 0 &&
+              -targetDirectionOffset > maxDirectionOffset
+            ) {
+              targetPos[direction] = prevPos[direction]
+              targetPos[oppositeDirection] = prevPos[oppositeDirection]
+            } else {
+              targetPos[direction] = prevPos[direction] + offset[direction]
+            }
+          })
+          return targetPos
+        }
+        const mouseUpCb = event => {
+          // mouseup logic, such as record the end curPoint
+          // In the most cases, we just remove listeners
+          mouseMoveEl.removeEventListener('mousemove', mouseMoveCb)
+          mouseUpEl.removeEventListener('mouseup', mouseUpCb)
+          mouseLeaveEl.removeEventListener('mouseleave', mouseUpCb)
+        }
+        mouseMoveEl.addEventListener('mousemove', mouseMoveCb)
+        mouseUpEl.addEventListener('mouseup', mouseUpCb)
+        mouseLeaveEl.addEventListener('mouseleave', mouseUpCb)
+      }
+      dragEl.addEventListener('mousedown', mouseDownCb)
+
+      function getElRectsOffset (
+        el1,
+        el2,
+        el1Name = 'child',
+        el2Name = 'parent'
+      ) {
+        let rect1 = el1.getBoundingClientRect()
+        let rect2 = el2.getBoundingClientRect()
+        return {
+          left: rect1.left - rect2.left,
+          top: rect1.top - rect2.top,
+          right: rect2.right - rect1.right,
+          bottom: rect2.bottom - rect1.bottom,
+          [el1Name]: rect1,
+          [el2Name]: rect2
+        }
+      }
+    </script>
+  </body>
+</html>
