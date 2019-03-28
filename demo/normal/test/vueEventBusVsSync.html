@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <search-form :page-num.sync="pageNum"></search-form>
+      <hr />
+      <search-result :page-num.sync="pageNum"></search-result>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      Vue.prototype.eventBus = new Vue()
+      const SearchResult = {
+        props: ['pageNum'],
+        template: `
+        <div>
+            click this button to check the next page data!
+            <br>
+          <button @click="checkNextPage">next page</button>
+        </div>`,
+        methods: {
+          checkNextPage() {
+            this.$emit('update:pageNum', this.pageNum + 1)
+            this.eventBus.$emit('submitSearchForm', this.pageNum + 1)
+          }
+        }
+      }
+      const SearchForm = {
+        props: ['pageNum'],
+        template: '<div>Assume there is a lot of form element!</div>',
+        created() {
+          this.eventBus.$on('submitSearchForm', this.submitSearchForm)
+        },
+        methods: {
+          submitSearchForm(pageNum) {
+            console.log('Got pageNum from event bus !', pageNum)
+            console.log('Got pageNum from $parent !', this.$parent.pageNum)
+            console.log('Got pageNum from props !', this.pageNum)
+            this.$nextTick(() => {
+              console.log('Got pageNum in nextTick !', this.pageNum)
+            })
+          }
+        }
+      }
+      const app = new Vue({
+        el: '#app',
+        components: {
+          SearchForm,
+          SearchResult
+        },
+        data() {
+          return {
+            pageNum: 1
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
