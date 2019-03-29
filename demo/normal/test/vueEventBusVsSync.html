@@ -10,7 +10,10 @@
     <div class="app" id="app">
       <search-form :page-num.sync="pageNum"></search-form>
       <hr />
-      <search-result :page-num.sync="pageNum"></search-result>
+      <search-result
+        :page-num="pageNum"
+        @update="pageNum=arguments[0]"
+      ></search-result>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <script>
@@ -19,7 +22,8 @@
         props: ['pageNum'],
         template: `
         <div>
-            current page {{pageNum}},
+            <h3>SearchResult</h3>
+            current page is {{pageNum}},
             <br>
              click this button to check the next page data!
             <br>
@@ -35,7 +39,7 @@
                 Date.now()
               )
             })
-            this.$emit('update:pageNum', this.pageNum + 1)
+            this.$emit('update', this.pageNum + 1)
             // microTask2: proves props change is between microTask1 and microTask2
             // which means props change might insert a new microTask, so we get the new value in microTask2.
             // Let's assume the new microTask is microTask1.5.
@@ -64,7 +68,10 @@
       }
       const SearchForm = {
         props: ['pageNum'],
-        template: '<div>Assume there is a lot of form element!</div>',
+        template: `<div>
+          <h3>SearchForm</h3>
+          Assume there is a lot of form element!
+        </div>`,
         created() {
           this.eventBus.$on('submitSearchForm', this.submitSearchForm)
         },
