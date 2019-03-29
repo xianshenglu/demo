@@ -19,13 +19,45 @@
         props: ['pageNum'],
         template: `
         <div>
-            click this button to check the next page data!
+            current page {{pageNum}},
+            <br>
+             click this button to check the next page data!
             <br>
           <button @click="checkNextPage">next page</button>
         </div>`,
         methods: {
           checkNextPage() {
+            // microTask1: proves that props pass is async and later than this microTask
+            Promise.resolve().then(() => {
+              console.log(
+                'Got pageNum from props in promise then before update:pageNum',
+                this.pageNum,
+                Date.now()
+              )
+            })
             this.$emit('update:pageNum', this.pageNum + 1)
+            // microTask2: proves props change is between microTask1 and microTask2
+            // which means props change might insert a new microTask, so we get the new value in microTask2.
+            // Let's assume the new microTask is microTask1.5.
+            Promise.resolve().then(() => {
+              console.log(
+                'Got pageNum from props in promise then after update:pageNum',
+                this.pageNum,
+                Date.now()
+              )
+            })
+            // proves that event listener is sync
+            console.log(
+              'Got pageNum from App after update:pageNum',
+              this.$parent.pageNum,
+              Date.now()
+            )
+            // proves that props pass is async
+            console.log(
+              'Got pageNum from props after update:pageNum',
+              this.pageNum,
+              Date.now()
+            )
             this.eventBus.$emit('submitSearchForm', this.pageNum + 1)
           }
         }
@@ -38,11 +70,15 @@
         },
         methods: {
           submitSearchForm(pageNum) {
-            console.log('Got pageNum from event bus !', pageNum)
-            console.log('Got pageNum from $parent !', this.$parent.pageNum)
-            console.log('Got pageNum from props !', this.pageNum)
+            // callback is executed between microTask1 and microTask2
+            // which means it is not executed by microTask1.5.then(callback)
+            // callback is executed in microTask1.5
             this.$nextTick(() => {
-              console.log('Got pageNum in nextTick !', this.pageNum)
+              console.log(
+                'Got pageNum from SearchForm nextTick !',
+                this.pageNum,
+                Date.now()
+              )
             })
           }
         }
