@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <h3>ts-date</h3>
+      <ts-date v-model="startTime" type="date"></ts-date>
+      <!-- equals -->
+      <!-- <ts-date
+        :value="startTime"
+        @input="startTime=arguments[0]"
+        type="date"
+      ></ts-date> -->
+      <h3>el-date-picker</h3>
+      <el-date-picker v-model="endTime" type="datetime"> </el-date-picker>
+      <!-- equals -->
+      <!-- <el-date-picker
+        :value="endTime"
+        @input="endTime=arguments[0]"
+        type="datetime"
+      >
+      </el-date-picker> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <script>
+      const TsDate = {
+        name: 'ts-date',
+        template: ` 
+        <el-date-picker
+           :value="$props.value"
+           @input="inputCb"
+          v-bind="$attrs"   
+          >
+        </el-date-picker>
+        `,
+        props: {
+          value: {
+            required: true
+          }
+        },
+        computed: {},
+        created() {
+          // you will find type in $attrs, that's because we set it by type="date". Vue gives us this API to access related attributes.
+
+          // you will find input in $listeners, that's because Vue set @input=startTime=arguments[0] and :value="startTime" when he saw v-model="startTime"
+          // Though we didn't do that.
+          window.vm = this
+          console.log(this, this.$attrs, this.$listeners)
+        },
+        methods: {
+          inputCb(value) {
+            // trigger the $listeners.input that Vue bind for us when he saw v-model
+            this.$emit('input', value)
+          }
+        }
+      }
+      window.app = new Vue({
+        el: '#app',
+        components: {
+          TsDate
+        },
+        data: {
+          startTime: new Date(),
+          endTime: new Date()
+        }
+      })
+    </script>
+  </body>
+</html>
