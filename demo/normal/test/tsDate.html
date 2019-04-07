@@ -13,11 +13,15 @@
   <body>
     <div id="app">
       <h3>ts-date</h3>
-      <ts-date v-model="startTime" type="date"></ts-date>
+      <ts-date
+        v-model="tsDate.startTime"
+        :type="tsDate.type"
+        :attr2="tsDate.attr2"
+      ></ts-date>
       <!-- equals -->
       <!-- <ts-date
-        :value="startTime"
-        @input="startTime=arguments[0]"
+        :value="tsDate.startTime"
+        @input="tsDate.startTime=arguments[0]"
         type="date"
       ></ts-date> -->
       <h3>el-date-picker</h3>
@@ -37,31 +41,38 @@
         name: 'ts-date',
         template: ` 
         <el-date-picker
-           :value="$props.value"
-           @input="inputCb"
+           :value="value"
           v-bind="$attrs"   
+          v-on="listeners"
           >
         </el-date-picker>
         `,
         props: {
+          // you have to set value in props because you can't get it if user used v-model in <ts-date>
           value: {
-            required: true
+            require: true
+          }
+          // other one way binding attributes can be accessed by $attrs
+        },
+        computed: {
+          listeners() {
+            const listeners = {
+              ...this.$listeners,
+              input(value) {
+                // trigger the $listeners.input that Vue bind for us when he saw v-model
+                this.$emit('input', value)
+              }
+            }
+            return listeners
           }
         },
-        computed: {},
         created() {
-          // you will find type in $attrs, that's because we set it by type="date". Vue gives us this API to access related attributes.
+          // you will find type,attr2 in $attrs, that's because we set it. Vue gives us this API to access related attributes.
 
-          // you will find input in $listeners, that's because Vue set @input=startTime=arguments[0] and :value="startTime" when he saw v-model="startTime"
+          // you will find input in $listeners, that's because Vue set @input=tsDate.startTime=arguments[0] and :value="tsDate.startTime" when he saw v-model="tsDate.startTime"
           // Though we didn't do that.
-          window.vm = this
-          console.log(this, this.$attrs, this.$listeners)
-        },
-        methods: {
-          inputCb(value) {
-            // trigger the $listeners.input that Vue bind for us when he saw v-model
-            this.$emit('input', value)
-          }
+          window.tsDate = this
+          console.log('tsDate', this.$attrs, this.$listeners, this.$props)
         }
       }
       window.app = new Vue({
@@ -70,8 +81,15 @@
           TsDate
         },
         data: {
-          startTime: new Date(),
-          endTime: new Date()
+          endTime: new Date(),
+          tsDate: {
+            startTime: new Date(),
+            type: 'date',
+            attr2: 2
+          }
+        },
+        created() {
+          window.vm = this
         }
       })
     </script>
