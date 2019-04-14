@@ -57,11 +57,7 @@
         computed: {
           listeners() {
             const listeners = {
-              ...this.$listeners,
-              input(value) {
-                // trigger the $listeners.input that Vue bind for us when he saw v-model
-                this.$emit('input', value)
-              }
+              ...this.$listeners
             }
             return listeners
           }
