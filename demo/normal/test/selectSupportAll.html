@@ -10,7 +10,7 @@
       href="https://unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css"
     />
     <style>
-      .SearchForm__checkAll {
+      .SelectAll__checkAll {
         width: 100%;
         box-sizing: border-box;
         margin-right: 0px;
@@ -25,8 +25,8 @@
   </head>
   <body>
     <div id="app">
-      <h3>ts-el-select-all</h3>
-      <ts-el-select-all
+      <h3>select-support-all</h3>
+      <select-support-all
         v-model="selectedOpts"
         multiple
         collapse-tags
@@ -41,7 +41,7 @@
           :value="item.value"
         >
         </el-option>
-      </ts-el-select-all>
+      </select-support-all>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
@@ -49,14 +49,14 @@
       function hyphenToPascal(str) {
         return str.replace(/(^|\-)([a-z])/g, v => v.toUpperCase())
       }
-      const TsElSelectAll = {
-        name: 'ts-el-select-all',
+      const selectSupportAll = {
+        name: 'select-support-all',
         template: `
             <el-select :value="value" v-bind="$attrs" v-on="$listeners"  @input.native="e=>isSelectAllShow=e.target.value.trim()===''">
               <el-checkbox
               v-show="isSelectAllShow"
               :value="isSelectAll"
-              class="SearchForm__checkAll"
+              class="SelectAll__checkAll"
               @input="selectAll(isSelectAll)"
               >{{selectAllLabel}}</el-checkbox>
                <slot></slot>
@@ -112,7 +112,7 @@
       window.app = new Vue({
         el: '#app',
         components: {
-          TsElSelectAll
+          selectSupportAll
         },
         data: {
           selectedOpts: [],
