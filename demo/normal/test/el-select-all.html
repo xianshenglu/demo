@@ -33,6 +33,7 @@
         filterable
         placeholder="Please Select"
       >
+        <span>text</span>
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -45,16 +46,23 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
     <script>
+      function hyphenToPascal(str) {
+        let result = str.replace(
+          /-[^-]+?/g,
+          v => v[1].toUpperCase() + v.slice(2)
+        )
+        return result[0].toUpperCase() + result.slice(1)
+      }
       const TsElSelectAll = {
         name: 'ts-el-select-all',
         template: `
-            <el-select :value="value" v-bind="$attrs" v-on="$listeners"  @input.native="e=>isSelectAllShow=e.target.value.trim()===''">       
+            <el-select :value="value" v-bind="$attrs" v-on="$listeners"  @input.native="e=>isSelectAllShow=e.target.value.trim()===''">
               <el-checkbox
               v-show="isSelectAllShow"
               :value="isSelectAll"
               class="SearchForm__checkAll"
-              @input.native="selectAll(isSelectAll)"
-              >{{selectAllLabel}}</el-checkbox> 
+              @input="selectAll(isSelectAll)"
+              >{{selectAllLabel}}</el-checkbox>
                <slot></slot>
             </el-select>
             `,
@@ -73,7 +81,20 @@
         },
         computed: {
           isSelectAll() {
-            return this.value.length === this.$slots.default.length
+            return this.value.length === this.optionSlots.length
+          },
+          optionSlots() {
+            return this.$slots.default.filter(o => {
+              if (
+                typeof o.componentOptions !== 'object' ||
+                o.componentOptions === null
+              ) {
+                return false
+              }
+              return (
+                ELEMENT.Option.name === hyphenToPascal(o.componentOptions.tag)
+              )
+            })
           }
         },
         methods: {
@@ -85,7 +106,7 @@
             if (isSelectAll === false) {
               this.$emit(
                 'input',
-                this.$slots.default.map(o => o.componentInstance.value)
+                this.optionSlots.map(o => o.componentInstance.value)
               )
               return
             }
