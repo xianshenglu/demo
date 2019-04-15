@@ -5,54 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css"
-    />
+    /> -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+    <!-- <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script> -->
   </head>
 
   <body>
     <div id="app">
-      <p v-for="item in items" :key="item.id">{{ item.label }}</p>
-      <hr />
-      <el-tree
-        :data="items"
-        show-checkbox
-        node-key="id"
-        :default-expanded-keys="[2, 3]"
-        v-if="isElTreeShow"
-        :key="elTreeVersion"
-      >
-      </el-tree>
+      <base-input
+        :value="value"
+        placeholder="parentPlaceholder"
+        otherAttrs="otherAttrs"
+        @input="inputCb"
+        @click="clickCb"
+      ></base-input>
     </div>
     <script>
+      let BaseInput = {
+        name: 'base-input',
+        template: `<div><input type="text" :value="value"  v-bind="$attrs" v-on="listeners" /></div>`,
+        props: {
+          value: {
+            type: String
+          }
+        },
+        computed: {
+          listeners() {
+            const listeners = {
+              ...this.$listeners,
+              focus: this.focusCb
+            }
+            return listeners
+          }
+        },
+        methods: {
+          focusCb(event) {
+            console.log('child', event)
+          }
+        }
+      }
       window.app = new Vue({
         el: '#app',
+        components: {
+          BaseInput
+        },
         data: {
-          isElTreeShow: true,
-          elTreeVersion: 100,
-          items: [
-            {
-              id: 1,
-              label: 'Level one 1'
-            },
-            {
-              id: 2,
-              label: 'Level one 2',
-              children: [
-                {
-                  id: 21,
-                  label: 'Level two 2-1'
-                }
-              ]
-            },
-            {
-              id: 3,
-              label: 'Level one 3'
-            }
-          ]
+          value: '',
+          parentPlaceholder: 'parentPlaceholder'
+        },
+        methods: {
+          inputCb(event) {
+            console.log(event)
+          },
+          clickCb(event) {
+            console.log(event)
+          }
         }
       })
     </script>
