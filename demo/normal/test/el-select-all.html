@@ -47,11 +47,7 @@
     <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
     <script>
       function hyphenToPascal(str) {
-        let result = str.replace(
-          /-[^-]+?/g,
-          v => v[1].toUpperCase() + v.slice(2)
-        )
-        return result[0].toUpperCase() + result.slice(1)
+        return str.replace(/(^|\-)([a-z])/g, v => v.toUpperCase())
       }
       const TsElSelectAll = {
         name: 'ts-el-select-all',
