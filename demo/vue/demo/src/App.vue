@@ -1,26 +1,18 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view />
-  </div>
+  <div id="app" ref="app"></div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data() {}
+  mounted () {
+    this.$refs.app.innerHTML = `<h1 class="App__title">App__title</h1>`
+  }
 }
-
-let s = 's'
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+/deep/ .App__title {
+  color: red;
 }
 </style>
