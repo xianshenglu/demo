@@ -1,0 +1,24 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xianshenglu/test.git"
+  },
+  "author": "'xianshenglu' <'xianshenglu@foxmail.com'>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/xianshenglu/test/issues"
+  },
+  "homepage": "https://github.com/xianshenglu/test#readme",
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-plugin-html": "^5.0.0",
+    "prettier": "^1.16.1"
+  }
+}
