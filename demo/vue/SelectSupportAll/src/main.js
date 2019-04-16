@@ -1,13 +1,19 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
+import SelectSupportAll from './components/SelectSupportAll';
 
-Vue.config.productionTip = false
+const install = function(Vue, opts = {}) {
+  /* istanbul ignore if */
+  if (install.installed) return;
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App/>'
-})
+  Vue.component(SelectSupportAll.name, SelectSupportAll);
+}
+
+// auto install
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
+
+module.exports = {
+  version: '1.0.0',
+  install,
+  SelectSupportAll,
+}
