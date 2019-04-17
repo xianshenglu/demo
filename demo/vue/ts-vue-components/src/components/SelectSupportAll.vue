@@ -18,10 +18,10 @@
 </template>
 
 <script>
-function hyphenToPascal(str) {
-  return str.replace(/(?:^|\-)([a-z])/g, (match, group) => group.toUpperCase())
-}
 import { Option } from 'element-ui'
+function hyphenToPascal(str) {
+  return str.replace(/(?:^|-)([a-z])/g, (match, group) => group.toUpperCase())
+}
 export default {
   name: 'SelectSupportAll',
   props: {
