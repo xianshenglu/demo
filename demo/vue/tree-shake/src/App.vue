@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import utils from './utils'
-// log1()
 export default {
   name: 'app',
   components: {}

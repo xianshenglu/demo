@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { log1 } from '../utils'
-log1()
+import { log2 } from '../utils'
+log2()
 export default {
   name: 'HelloWorld'
 }
