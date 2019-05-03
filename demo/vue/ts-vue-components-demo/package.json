@@ -5,11 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "analyze": "vue-cli-service build --report"
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "element-ui": "^2.7.2",
+    "element-ui": "^2.8.2",
     "vue": "^2.6.10"
   },
   "devDependencies": {
