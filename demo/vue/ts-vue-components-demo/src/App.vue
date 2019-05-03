@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <SelectSupportAll/>
+    <SelectSupportAll v-model="value" multiple filterable collapse-tags>
+      <el-option v-for="item in options" :key="item.value" :value="item.value" :label="item.label"></el-option>
+    </SelectSupportAll>
   </div>
 </template>
 
 <script>
-import TsVueComponets from 'ts-vue-components/src/components/index'
-const { SelectSupportAll } = TsVueComponets
-console.log(SelectSupportAll)
-
 export default {
   name: 'app',
-  components: {
-    SelectSupportAll
+  data() {
+    return {
+      value: '',
+      options: [
+        { label: 'label1', value: 1 },
+        { label: 'label2', value: 2 },
+        { label: 'label3', value: 3 },
+        { label: 'label4', value: 4 }
+      ]
+    }
   }
 }
 </script>
