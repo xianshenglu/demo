@@ -18,7 +18,12 @@
 </template>
 
 <script>
-import { Option } from 'element-ui'
+import Vue from 'vue'
+import { Checkbox, Select, Option } from 'element-ui'
+Vue.use(Checkbox, Select, Option)
+/**
+ * @todo move to utils/
+ */
 function hyphenToPascal(str) {
   return str.replace(/(?:^|-)([a-z])/g, (match, group) => group.toUpperCase())
 }
@@ -27,7 +32,7 @@ export default {
   props: {
     value: {
       require: true,
-      default: () => []
+      default: () => ([])
     },
     selectAllLabel: {
       default: '全选'
