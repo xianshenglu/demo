@@ -5,10 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --name ts-vue-components ./src/components/index.js",
+    "build-bundle": "vue-cli-service build --report --target lib --name ts-vue-components ./src/index.js",
     "lint": "vue-cli-service lint"
   },
-  "main": "./dist/ts-vue-components.common.js",
+  "main": "./src/index.js",
   "files": [
     "dist/*",
     "src/*",
