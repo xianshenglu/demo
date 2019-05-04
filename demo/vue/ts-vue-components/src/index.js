@@ -1,17 +1,20 @@
-import Vue from 'vue'
-import { Checkbox, Select } from 'element-ui'
-Vue.use(Checkbox, Select)
+import SelectSupportAll from './packages/select-support-all'
 
-import { SelectSupportAll } from './components'
+const components = [SelectSupportAll]
 
-const myComponents = { SelectSupportAll }
+const install = function(Vue) {
+  components.forEach(component => {
+    Vue.component(component.name, component)
+  })
+}
+
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
+}
+
 // todo support import on demand
+export { default as SelectSupportAll } from './packages/select-support-all'
 export default {
-  components: myComponents,
-  //! installed all components
-  install: function(Vue) {
-    Object.keys(myComponents).forEach(name => {
-      Vue.component(name, myComponents[name])
-    })
-  }
+  install,
+  SelectSupportAll
 }
