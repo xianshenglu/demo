@@ -1,0 +1,3 @@
+{
+  "select-support-all": "./packages/select-support-all/index.js"
+}
