@@ -8,12 +8,17 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
 
-import TsVueComponents from 'ts-vue-components/src/components/index'
-const { SelectSupportAll } = TsVueComponents
+// import TsVueComponents from 'ts-vue-components/src/index'
+import TsVueComponents from 'ts-vue-components'
+// import 'ts-vue-components'
 
-Vue.use(SelectSupportAll)
+// console.log(TsVueComponents)
 
-console.log(SelectSupportAll)
+// const { SelectSupportAll } = TsVueComponents
+
+Vue.use(TsVueComponents)
+
+// console.log(SelectSupportAll)
 
 new Vue({
   render: h => h(App)
