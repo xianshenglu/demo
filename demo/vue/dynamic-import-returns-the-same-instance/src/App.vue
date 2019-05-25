@@ -2,7 +2,9 @@
   <div id="app">
     <router-link to="/foo" class="app__link">Go to foo</router-link>
     <router-link to="/bar" class="app__link">Go to bar</router-link>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view> 
+    </keep-alive>
   </div>
 </template>
 
@@ -23,5 +25,6 @@ export default {
 }
 .app__link {
   display: block;
+  margin: 20px;
 }
 </style>
