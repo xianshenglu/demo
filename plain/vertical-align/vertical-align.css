@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: black;
+  font-family: "Arial", "微软雅黑";
+}
+body {
+  background-color: #eee;
+}
+.content {
+  width: 60%;
+  min-height: 800px;
+  padding: 0 40px 40px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: white;
+}
+.content h1 {
+  margin: 0 auto;
+  color: #8194aa;
+  font-weight: normal;
+  text-align: center;
+  padding: 20px;
+}
+.content h4 {
+  width: 50%;
+  text-align: right;
+  margin-left: 50%;
+  margin-bottom: 15px;
+  font-weight: normal;
+  font-style: italic;
+  color: #8194aa;
+}
+.content textarea {
+  margin-top: 10px;
+  padding: 10px 0 10px 20px;
+  width: 100%;
+  color: black;
+  overflow: hidden;
+  resize: none;
+  background: url(images/text-area.png);
+  background-color: #f8f8f8;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+}
+.content a {
+  text-decoration: none;
+  color: #087ffd;
+}
+.content p {
+  line-height: 2em;
+  text-indent: 2em;
+}
+.content .coda {
+  float: right;
+  text-align: right;
+  margin: 20px 0;
+  border-bottom: 1px solid lightgrey;
+}
+.content code {
+  display: inline;
+  padding: 0 5px;
+  background-color: #f7fbfa;
+  color: #029ae2;
+  border-radius: 10px;
+  font-style: italic;
+}
+.content hr {
+  border-top: 0;
+  border-color: lightgrey;
+}
+.content .example {
+  width: 100%;
+  padding: 10px;
+}
+.content .exam1code {
+  height: 425px;
+}
+.content .exam2code {
+  height: 290px;
+}
+.content .exam3code {
+  height: 420px;
+}
+.content .exam4code {
+  height: 600px;
+}
+.content .big_img {
+  width: 100%;
+}
+.content img {
+  width: 100%;
+}

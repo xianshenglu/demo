@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		table {
+			/* 在火狐/IE中，border-collapse: collapse;会导致 th的背景色覆盖边框颜色，td不会； */
+			border-collapse: collapse;
+			width: 300px;
+
+		}
+		th,td {
+			width: 100px;
+			height: 30px;
+			border: 1px solid red;
+			text-align: center;
+			box-sizing: border-box;
+			background: grey;
+		}
+		th {
+			position: relative;
+			/* background: transparent; */
+		}
+	</style>
+
+</head>
+<body>
+	<table>
+		<th>heool ss</th>
+		<th>heool ss</th>
+		<th>heool ss</th>
+		<tbody>
+			<tr>
+				<td>helll</td>
+				<td>helll</td>
+				<td>helll</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!Doctype>
+<html>
+ <head>
+   <title>瀑布流布局</title>
+   <meta charset="utf-8" />
+   <link type="text/css" rel="stylesheet" href="file:///D:/Demo/jquery/%E7%80%91%E5%B8%83%E6%B5%81%E5%B8%83%E5%B1%80/style.css" />
+   <!-- <script type="text/javascript" src="js/script.js"></script> -->
+ </head>
+ <body>
+     <div id="main">
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/0.jpg" />
+ 			</div>
+ 		</div>
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/1.jpg" />
+ 			</div>
+ 		</div>
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/2.jpg" />
+ 			</div>
+ 		</div>
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/3.jpg" />
+ 			</div>
+ 		</div>
+  		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/4.jpg" />
+ 			</div>
+ 		</div>
+  		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/5.jpg" />
+ 			</div>
+ 		</div>
+  		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/6.jpg" />
+ 			</div>
+ 		</div>
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/7.jpg" />
+ 			</div>
+ 		</div>
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/8.jpg" />
+ 			</div>
+ 		</div>
+ 		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/9.jpg" />
+ 			</div>
+ 		</div>
+  		<div class="box">
+ 			<div class="pic">
+ 				<img src="images/10.jpg" />
+ 			</div>
+ 		</div>
+	</div>
+ </body>
+</html>
+<script type="text/javascript">
+ window.onload=function(){
+     waterfall('main','box');
+};
+function waterfall(parent,box){
+    var oParent=document.getElementById(parent);
+    var oBoxs=getByClass(oParent,box);
+    var cols = Math.floor(document.documentElement.clientWidth/oBoxs[0].offsetWidth);
+    /*console.log(cols);*/
+    var oBoxH = [];
+	for(var i=0;i<oBoxs.length;i++){
+    if(i<cols){
+    	oBoxH.push(oBoxs[i].offsetHeight);
+    	console.log(oBoxH);
+       // 将图片的高度值添加到数组中
+    }else{
+      // 求最小值和最小值的索引
+      var oBoxMH = Math.min.apply(null,oBoxH);
+      console.log(oBoxMH);
+      var index = oBoxH.indexOf(oBoxMH);
+      
+
+// 计算及定义图片出现的位置
+      oBoxs[i].style.position='absolute';
+      oBoxs[i].style.left =oBoxs[0].offsetWidth*index + "px";
+      oBoxs[i].style.top =oBoxMH + "px";
+      
+      
+      // 改变数组值
+     oBoxH[index] +=oBoxs[i].offsetHeight;
+    }
+  }
+}
+function getByClass(parent,clsName){
+	var boxArr=new Array();
+	oElements=parent.getElementsByTagName('*');
+	for(var i=0;i<oElements.length;i++){
+		if(oElements[i].className==clsName){
+			boxArr.push(oElements[i]);
+		}
+	}
+	return boxArr;
+}
+// 求值在数组中的索引,arr接收的是数组，val接收的是判断的值
+/*function getMinhIndex(arr,val){
+	for (var i in arr) {
+		if (val == arr[i]) {
+			return i
+		} 
+	}
+
+}*/
+</script>
+

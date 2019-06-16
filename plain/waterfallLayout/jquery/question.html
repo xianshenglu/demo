@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>question</title>
+	<script type="text/javascript">
+		window.onload = function(){
+			var answer = document.getElementById('answer');
+			var arr = ['1','2','3','4','2'];
+			answer.innerHTML = getMinhIndex(arr,"3");
+
+			function getMinhIndex(arr,val) { 
+				for(var i in arr){ 
+					if(arr[i] == val){ 
+						return i; 
+					} 
+				} 
+			}
+		};
+	</script>
+</head>
+<body>
+	<h1 id="answer"></h1>
+
+</body>
+</html>

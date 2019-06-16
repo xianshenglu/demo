@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>question</title>
+	<style type="text/css">
+		h1 {margin: 200px;border:1px solid red;}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var answer = document.getElementById('answer');
+			var arr = ['1','2','3','3','2'];
+			answer.innerHTML = arr.indexOf("3");
+			// console.log();
+			/*answer.innerHTML = getMinhIndex(arr,"3");
+			function getMinhIndex(arr,val) { 
+				for(var i in arr){ 
+					if(arr[i] == val){ 
+						return i; 
+						// 获取的是第一个i，而不是一个数组，即使有两个值等于val；return之后直接跳出了循环；
+					} 
+				} 
+			}	*/		
+		};
+	</script>
+</head>
+<body>
+	<h1 id="answer"></h1>
+</body>
+</html>

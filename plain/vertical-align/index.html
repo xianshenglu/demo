@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<title>test</title>
+	<style>
+		body {
+			font-family: '微软雅黑';
+		}
+		body * {
+			padding:0;
+			margin:0;
+		}
+		.container {
+			width: 1000px;
+			margin: 0 auto;
+		}
+		.show{
+			background-color: pink;		
+			border: 1px solid red;
+			font-size: 26px;
+			width: 810px;/* 再窄就看不到父元素的基线了 */
+			margin: 0 auto;
+			height:61px;
+		}
+		.show img {
+			width: 40px;
+			height: 40px;
+		}
+		.show .optimus {		
+			background-color: lightgreen;		
+			display: inline-block;
+			font-size: 46px;
+		}
+		.show .eg {
+			background-color: lightblue;
+			display: inline-block;
+			font-size: 36px;
+		}	
+		.show .egp {
+			background-color: lightgrey;
+		}
+		/* 画父元素的基线，不要动 */
+		.show .baseline {
+			display: inline-block;
+			width: 0;
+			height: 0;		
+			position: relative;	
+		}
+		.show .baseline:after {
+			content: '';
+			display: block;
+			width:805px;
+			border:1px solid yellow;
+			position: absolute;
+			left: -805px;		
+		}
+		/* 测试按钮 */
+		.testdiv {
+			margin-top: 20px;	
+		}
+		.testdiv>div {
+			text-align: center;
+			width: 150px;
+			display: inline-block;
+			margin-right: 20px;
+			overflow: hidden;
+		}
+		.testdiv button,.testdiv textarea,.test-sp button {
+			width: 150px;
+			height: 35px;
+			margin: 1px 0;
+			text-align: center;
+		}
+		.testdiv .expla {
+			width: 600px;
+			overflow: hidden;
+		}	
+		.testdiv .expla textarea,textarea {	
+			line-height: 40px;
+			width: 600px;	
+			margin-bottom:-4px;
+			color: black;
+			overflow: hidden;
+			resize:none;			
+			background-color: #f8f8f8;
+			border:none;
+			border-radius: 10px;
+			outline: none;
+		}
+		.test-sp {
+			margin-top: 10px;
+		}
+		.test-sp>* {
+			display: inline-block;	
+			vertical-align: middle;		
+		}
+		.test-sp button {
+			margin-right: 20px;
+		}
+		.test-sp textarea{
+			height: 35px;
+			line-height: 40px;
+			width: 600px;
+			text-align: center;
+		}
+		.test-sp select {
+			padding-left: 30px;
+			width: 150px;
+			height: 35px;		
+			margin-right: 20px;	
+		}
+		p {
+			text-align: center;
+			margin-top: 20px;
+			font-style: italic;
+			color: grey;
+		}
+		a {
+			text-decoration: none;
+			color:#2fc0ef;
+			font-style: italic;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="show">
+			<img class="left-ps" src="images/ps.png" alt="" />
+			<span class="optimus">擎optf</span>
+			<span class="eg">font-size:36px</span>
+			<span class="egp">font-size:26px继承父元素</span>
+			<img class="right-ps" src="images/ps.png" alt="" />
+			<span class="baseline"><!-- 用来画父元素基线的空span --></span>
+		</div>
+		<p>注意：1、图中黄线始终是父元素行框的基线；2、vertical-align 默认值 baseline；3、此处没有考虑行高、边距、边框的影响</p>
+		<div class="testdiv">
+			<div class="test-eg">
+				<h5>测试文字<br />font-size:36px</h5>
+				<button>baseline</button>
+				<button>sub</button>
+				<button>super</button>
+				<button>bottom</button>
+				<button>text-bottom</button>
+				<button>top</button>
+				<button>text-top</button>
+				<button>middle</button>
+			</div>
+			<div class="test-ps">
+				<h5>测试图片<br />最右的PS</h5>
+				<button>baseline</button>
+				<button>sub</button>
+				<button>super</button>
+				<button>bottom</button>
+				<button>text-bottom</button>
+				<button>top</button>
+				<button>text-top</button>
+				<button>middle</button>
+			</div>
+			<div class="expla">
+				<h5><a href="https://github.com/JimmyStephen/document">CSS权威指南第三版(深入理解点这里)</a><br />定义:</h5>
+				<textarea>默认值!要求一个元素的基线(若是图片,则是底端)与其父元素的基线对齐</textarea>
+				<textarea>要求一个元素的基线(若是图片,则是底端)相对其父元素的基线降低</textarea>
+				<textarea>要求一个元素的基线(若是图片,则是底端)相对其父元素的基线升高</textarea>
+				<textarea>要求元素行内框的底端与其父元素行框的底端对齐</textarea>
+				<textarea>根据父元素的font-size生成一个默认文本框，要求元素的行内框底端与默认文本框的底端对齐</textarea>
+				<textarea>要求元素行内框的顶端与其父元素行框的顶端对齐</textarea>
+				<textarea>根据父元素的font-size生成一个默认文本框，要求元素的行内框顶端与默认文本框的顶端对齐</textarea>
+				<textarea>将行内元素框的垂直中点移到父元素基线上方的0.5ex处的一个点对齐</textarea>
+			</div>
+		</div>	
+		<h5>下面属于自己理解的部分</h5>	
+		<div class="test-sp">
+			<button>.parent>*</button>
+			<select id="show">
+				<option value="baseline">baseline</option>
+				<option value="sub">sub</option>
+				<option value="super">super</option>
+				<option value="bottom">bottom</option>
+				<option value="text-bottom">text-bottom</option>
+				<option value="top">top</option>
+				<option value="text-top">text-top</option>
+				<option value="middle">middle</option>
+			</select>			
+			<textarea>操作所有的子元素按照一种对齐方式对齐,若选middle,则全部居中对齐</textarea>
+			<button>.optimus</button>
+			<select id="optimus">
+				<option value="baseline">baseline</option>
+				<option value="sub">sub</option>
+				<option value="super">super</option>
+				<option value="bottom">bottom</option>
+				<option value="text-bottom">text-bottom</option>
+				<option value="top">top</option>
+				<option value="text-top">text-top</option>
+				<option value="middle">middle</option>
+			</select>
+			<textarea>由于父元素行框是由.optimus撑起的,所以改变它的vertical-align,会直接改变父元素行框的基线</textarea>
+		</div>
+	</div>
+	<script>
+		var testdiv=document.getElementsByClassName('testdiv')[0];
+		var show=document.getElementsByClassName('show')[0];
+		testdiv.addEventListener('click',showv,false);
+		var testSp=document.getElementsByClassName('test-sp')[0];
+		testSp.addEventListener('change',showv,false);
+		var optimus=show.getElementsByClassName('optimus')[0];
+		function showv(event) {
+			var eventType=event.type;
+			var eventTar=event.target;
+			var testEg,testPs;
+			if (eventType=='click') {
+			if (eventTar.parentNode.className=='test-eg') {
+				testEg=show.getElementsByClassName('eg')[0];				
+				testEg.style.verticalAlign=eventTar.innerHTML;
+			}else if(eventTar.parentNode.className=='test-ps'){
+				testPs=show.getElementsByClassName('right-ps')[0];
+				testPs.style.verticalAlign=eventTar.innerHTML;
+			}				
+			}else if(eventType=='change'){
+				if (eventTar.id=='show') {
+					for (var i = 0; i < show.children.length; i++) {
+						show.children[i].style.verticalAlign=eventTar.value;
+					}
+				}else if(eventTar.id=='optimus'){
+					optimus.style.verticalAlign=eventTar.value;
+				}
+			}
+		}
+	</script>
+</body>
+</html>
