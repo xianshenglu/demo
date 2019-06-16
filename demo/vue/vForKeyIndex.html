@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .app {
+        width: 90vh;
+        height: 80vh;
+        padding: 15px;
+        background: #eee;
+        margin: 10vh auto;
+        overflow: auto;
+      }
+      .app__button {
+        margin: 0 auto;
+      }
+      .app__checkbox {
+        margin: 10px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.8.2/lib/index.js"></script>
+    <div id="app" class="app">
+      <el-button class="app__button" @click="unshiftOption"
+        >unshiftOption
+      </el-button>
+      <el-checkbox
+        class="app__checkbox"
+        v-for="(item,index) in options"
+        :key="index"
+        v-model="item.checked"
+        >{{ item.label }}</el-checkbox
+      >
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          value: '',
+          options: [
+            { label: 'label1', name: 'checkbox1', checked: undefined },
+            { label: 'label2', name: 'checkbox2', checked: undefined },
+            { label: 'label3', name: 'checkbox3', checked: undefined }
+          ],
+          counter: 4
+        },
+        created() {
+          window.vm = this
+        },
+        methods: {
+          unshiftOption() {
+            const count = this.counter++
+            this.options.unshift({
+              label: 'label' + count,
+              name: 'checkbox' + count,
+              checked: undefined
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
