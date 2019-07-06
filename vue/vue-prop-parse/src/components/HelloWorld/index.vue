@@ -1,10 +1,6 @@
 <template>
   <div class="HelloWorld">
     <TestPara
-      :attr-aa="0"
-      :attr-bb="1"
-      :attr-Cc="2"
-      :Attr-Dd="3"
       :AttrEe="4"
       :attr_ff="5"
       :attr_Gg="6"

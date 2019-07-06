@@ -6,17 +6,6 @@
 export default {
   name: 'TestPara',
   props: [
-    'attr-aa',
-    'attrBb',
-    'attr-Cc', // undefined
-    // 'attrCc', // undefined
-    // 'attr-cc', // undefined
-    // 'attrcc', // undefined
-    'Attr-Dd', // AttrDd undefined,
-    // 'AttrDd', // AttrDd undefined
-    // 'Attr-dd', // AttrDd undefined
-    // 'Attrdd', // Attrdd undefined
-    // 'attrDd', // attrDd undefined
     'AttrEe',
     'attr_ff',
     'attr_Gg',
