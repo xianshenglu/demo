@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .select-color__value,
+      .selected-count__value {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <form class="form" id="form">
+      选择颜色：
+      <select name="color" class="form__color">
+        <option value="">请选择</option>
+        <option value="red" label="red"></option>
+        <option value="blue" label="blue"></option>
+      </select>
+      选择内存：
+      <select name="memory" class="form__memory">
+        <option value="">请选择</option>
+        <option value="32G">32G</option>
+        <option value="16G">16G</option>
+      </select>
+      输入数量：
+      <input
+        type="number"
+        name="count"
+        class="form__count"
+        placeholder="请输入数量"
+        value="1"
+      />
+      <div class="selected-color">
+        <div class="select-color__label">您选择了颜色：</div>
+        <div class="select-color__value"></div>
+      </div>
+      <div class="selected-count">
+        <div class="selected-count__label">您选择了数量：</div>
+        <div class="selected-count__value"></div>
+      </div>
+      <div class="selected-memory">
+        <div class="selected-memory__label">您选择了内存：</div>
+        <div class="selected-memory__value"></div>
+      </div>
+      <br />
+      <button id="nextStepText" type="submit">放入购物车</button>
+    </form>
+    <!-- <script src="original.js"></script> -->
+    <script src="textbook.js"></script>
+  </body>
+</html>
