@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="button">button</button>
+    <script>
+      function before(fn, ...callbackList) {
+        return function() {
+          callbackList.forEach(cb => cb.apply(this, arguments))
+          fn.apply(this, arguments)
+        }
+      }
+
+      function after(fn, ...callbackList) {
+        return function() {
+          fn.apply(this, arguments)
+          callbackList.forEach(cb => cb.apply(this, arguments))
+        }
+      }
+
+      var _getElementById = document.getElementById
+      var button = document.getElementById('button')
+      window.onload = function() {
+        console.log(1)
+      }
+      after(
+        window.onload,
+        () => console.log(2),
+        () => console.log(3),
+        () => console.log(4)
+      )()
+    </script>
+  </body>
+</html>
