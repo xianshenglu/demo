@@ -9,6 +9,7 @@
   "plugins": ["html"],
   "root": true,
   "parserOptions": {
+    "ecmaVersion": 2019,
     "ecmaFeatures": {
       "jsx": true
     },
