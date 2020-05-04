@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./static/app.css" />
+  </head>
+  <body>
+    <link rel="stylesheet" href="./static/header.css" />
+    <header>
+      Header
+    </header>
+    <link rel="stylesheet" href="./static/main.css" />
+    <main>
+      Main
+    </main>
+    <link rel="stylesheet" href="./static/footer.css" />
+    <footer>Footer</footer>
+    <script>
+      let startTime = Date.now()
+      let interval = 0
+      while ((interval = Date.now() - startTime) < 10000) {
+        if (interval % 1000 === 0) {
+          console.log(interval / 1000 + ' second passed')
+        }
+      }
+    </script>
+    <!-- <script src="./static/app.js"></script> -->
+  </body>
+</html>

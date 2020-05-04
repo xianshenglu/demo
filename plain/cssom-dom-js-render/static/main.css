@@ -1,0 +1,5 @@
+main {
+  background-color: #f5845a;
+  flex: 0 0 auto;
+  height: calc(100% - 200px);
+}

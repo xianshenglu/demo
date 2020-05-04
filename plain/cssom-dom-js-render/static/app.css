@@ -1,0 +1,16 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #e9e4df;
+  color: #1d1d1d;
+  color: #fff;
+  font-size: 2em;
+}
+body {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+}
