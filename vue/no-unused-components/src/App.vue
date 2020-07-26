@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <el-button type="primary" @click="onHelloWorldShow"
+      >click me to show HelloWorld</el-button
+    >
   </div>
 </template>
 
@@ -12,6 +14,16 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  methods: {
+    onHelloWorldShow() {
+      this.$message({
+        message: this.$createElement('hello-world', {
+          props: { msg: 'from onHelloWorldShow' }
+        }),
+        showClose: true
+      })
+    }
   }
 }
 </script>
