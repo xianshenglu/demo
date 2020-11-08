@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body,
+      html,
+      #container,
+      #libCont {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+      }
+      .form,
+      #libCont {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .form {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="http://api.map.baidu.com/api?v=3.0&ak=MlCUAgjl8EZEzfYEAyLLwk8XWCma44GY"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/konva@7.1.4/konva.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <div id="container"></div>
+    <div id="libCont"></div>
+    <div class="form">
+      <label for="pointNum">点数量</label>
+      <input type="number" value="1000" id="pointNum" />
+      <label for="renderMethod">渲染方式</label>
+      <select name="" id="renderMethod">
+        <option value="drawDoms">dom 渲染</option>
+        <option value="drawWithKonva">Konva 渲染</option>
+        <option value="drawCanvasLayers">手写 canvans 渲染</option>
+      </select>
+      <button onclick="window[renderMethod.value]()">开始渲染</button>
+    </div>
+
+    <script>
+      const libCont = document.querySelector('#libCont')
+      const pointNum = document.querySelector('#pointNum')
+      var map = new BMap.Map('container')
+      map.centerAndZoom(new BMap.Point(116.3964, 39.9093), 10)
+      map.enableScrollWheelZoom()
+
+      function drawDoms() {
+        libCont.style.display = 'none'
+        getPointList(pointNum.value).forEach((point, index) => {
+          const label = new BMap.Label(getLabelDom(index, 'html'), {
+            position: point
+          })
+          label.setStyle({ border: 'none' })
+          label.addEventListener('click', () => {
+            alert(index)
+          })
+          map.addOverlay(label)
+        })
+      }
+      function drawCanvasLayers() {
+        libCont.style.display = 'none'
+        map.clearOverlays()
+
+        var canvasLayer = new BMap.CanvasLayer({
+          update: update
+        })
+
+        function update() {
+          var ctx = this.canvas.getContext('2d')
+          if (!ctx) {
+            return
+          }
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
+          ctx.beginPath()
+          ctx.font = '12px sans-serif'
+          getPointList(pointNum.value).forEach((point, index) => {
+            var pixel = map.pointToPixel(point)
+            roundRect(ctx, pixel.x, pixel.y, 100, 40, 20)
+            ctx.fillStyle = '#000'
+            ctx.fillText(`index:${index}`, pixel.x + 10, pixel.y + 24)
+          })
+        }
+        map.addOverlay(canvasLayer)
+      }
+
+      function drawWithKonva() {
+        libCont.style.display = 'block'
+        map.clearOverlays()
+
+        var canvasLayer = new BMap.CanvasLayer({
+          update: update
+        })
+        var stage = new Konva.Stage({
+          container: 'libCont',
+          width: window.innerWidth,
+          height: window.innerHeight
+        })
+        var layer = new Konva.Layer()
+        stage.add(layer)
+
+        function update() {
+          var ctx = this.canvas.getContext('2d')
+          if (!ctx) {
+            return
+          }
+          layer.clear()
+          layer.removeChildren()
+
+          getPointList(pointNum.value).forEach(async (point, index) => {
+            var pixel = map.pointToPixel(point)
+
+            var box = new Konva.Rect({
+              x: pixel.x,
+              y: pixel.y,
+              width: 100,
+              height: 40,
+              fill: 'rgba(255,255,255,0.6)',
+              stroke: '#000',
+              strokeWidth: 1,
+              draggable: false,
+              cornerRadius: 20
+            })
+            var text = new Konva.Text({
+              x: pixel.x + 10,
+              y: pixel.y,
+              text: 'index: ' + index,
+              fontSize: 12,
+              lineHeight: 40 / 12,
+              fill: '#000'
+            })
+            layer.add(box, text)
+
+            // add cursor styling
+            box.on('mouseover', function() {
+              document.body.style.cursor = 'pointer'
+            })
+            box.on('mouseout', function() {
+              document.body.style.cursor = 'default'
+            })
+            box.on('click', function() {
+              alert(index)
+            })
+            text.on('click', function() {
+              alert(index)
+            })
+          })
+          layer.draw()
+        }
+        map.addOverlay(canvasLayer)
+
+        redirectCustomCanvasEvents(libCont)
+      }
+    </script>
+  </body>
+</html>
