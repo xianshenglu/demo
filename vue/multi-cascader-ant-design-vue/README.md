@@ -1,8 +1,6 @@
 # multi-cascader-ant-design-vue
 
-- [click me to preview](https://xianshenglu.github.io/vue/demo/multi-cascader-ant-design-vue/dist/index.html)
-
-  ![multi-cascader-ant-design-vue](https://xianshenglu.github.io/vue/demo/img-displayed/multi-cascader-ant-design-vue.gif)
+- [click me to preview](https://xianshenglu.github.io/demo/vue/multi-cascader-ant-design-vue/dist/)
 
 ## Project setup
 
