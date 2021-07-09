@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/element-ui@2.4.11/lib/theme-chalk/index.css"
+    />
+    <style></style>
+  </head>
+  <body>
+    <div id="app">
+      <el-table :data="pingResponseList" max-height="500">
+        <el-table-column sortable align="center" label="ip" prop="ip"></el-table-column>
+        <el-table-column sortable align="center" label="sentCount" prop="sentCount"></el-table-column>
+        <el-table-column sortable align="center" label="receivedCount" prop="receivedCount"></el-table-column>
+        <el-table-column sortable align="center" label="lossCount" prop="lossCount"></el-table-column>
+        <el-table-column sortable align="center" label="lossRate" prop="lossRate"></el-table-column>
+        <el-table-column sortable align="center" label="averageTime(ms)" prop="averageTime"></el-table-column>
+      </el-table>
+    </div>    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.10.1/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web-pingjs@1.0.1/ping.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.14/lodash.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
