@@ -1,7 +1,7 @@
 const axios = require('axios')
 const { sendEmail } = require('./mail')
 
-const { GLADOS_SESSION, CHECK_IN_INTERVAL } = process.env
+const { GLADOS_SESSION, CHECK_IN_INTERVAL, MASTER_EMAIL_ADDRS } = process.env
 
 axios.defaults.headers.common['cookie'] = GLADOS_SESSION
 axios.defaults.headers.common['content-type'] = 'application/json'
@@ -11,8 +11,8 @@ async function checkIn() {
   const { data } = response
 
   sendEmail({
-    to: 'xianshenglu@qq.com',
-    subject: `Glados auto checkIn => ${data.message}`,
+    to: MASTER_EMAIL_ADDRS,
+    subject: `Glados checkIn == ${data.message}`,
     html: JSON.stringify(data)
   })
 }

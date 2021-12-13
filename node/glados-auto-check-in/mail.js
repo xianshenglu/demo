@@ -1,9 +1,13 @@
 const nodemailer = require('nodemailer')
-const { EMAIL_USERNAME, EMAIL_PASSWORD } = process.env
+const {
+  ROBOT_EMAIL_USERNAME,
+  ROBOT_EMAIL_PASSWORD,
+  ROBOT_EMAIL_SERVICE
+} = process.env
 const debugEmail = {
-  user: EMAIL_USERNAME,
-  password: EMAIL_PASSWORD,
-  service: 'smtp.126.com'
+  user: ROBOT_EMAIL_USERNAME,
+  password: ROBOT_EMAIL_PASSWORD,
+  service: ROBOT_EMAIL_SERVICE || 'smtp.126.com'
 }
 
 function sendEmail(

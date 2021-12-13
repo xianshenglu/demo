@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start": "cross-env ROBOT_EMAIL_USERNAME=username@126.com ROBOT_EMAIL_PASSWORD=password GLADOS_SESSION=\"koa:sess=sess; koa:sess.sig=sig\" node main.js"
   },
   "author": "",
   "license": "ISC",

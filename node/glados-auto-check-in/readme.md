@@ -6,8 +6,8 @@ Help you to auto check in in [glados.rocks](https://glados.rocks/console).
 
 ### Envs
 
-- `EMAIL_USERNAME`
-- `EMAIL_PASSWORD`
+- `ROBOT_EMAIL_USERNAME`
+- `ROBOT_EMAIL_PASSWORD`
 - `GLADOS_SESSION`
 - `CHECK_IN_INTERVAL`
 
