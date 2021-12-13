@@ -7,14 +7,24 @@ axios.defaults.headers.common['cookie'] = GLADOS_SESSION
 axios.defaults.headers.common['content-type'] = 'application/json'
 
 async function checkIn() {
-  const response = await checkInApi()
-  const { data } = response
+  let response
+  try {
+    response = await checkInApi()
+    const { data } = response
 
-  sendEmail({
-    to: MASTER_EMAIL_ADDRS,
-    subject: `Glados checkIn == ${data.message}`,
-    html: JSON.stringify(data)
-  })
+    sendEmail({
+      to: MASTER_EMAIL_ADDRS,
+      subject: `Glados checkIn == ${data.message}`,
+      html: JSON.stringify(data)
+    })
+  } catch (error) {
+    sendEmail({
+      to: MASTER_EMAIL_ADDRS,
+      subject: `Glados checkIn == ERROR`,
+      html: error.message
+    })
+  }
+ 
 }
 async function checkInApi() {
   const response = await axios.request(
