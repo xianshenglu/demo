@@ -11,7 +11,9 @@ async function checkIn() {
   try {
     response = await checkInApi()
     const { data } = response
-
+    if (data.code === 0) {
+      return
+    }
     sendEmail({
       to: MASTER_EMAIL_ADDRS,
       subject: `Glados checkIn == ${data.message}`,
