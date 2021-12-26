@@ -21,6 +21,15 @@ npm run start
 
 **You need to replace the cookie after the previous one expires.**
 
+### Keep the process running in the background in linux
+
+1. run the command
+2. Press `ctrl` + `Z`
+3. 
+```shell
+bg
+disown %1
+```
 ### Todo
 
 - [ ] auto update session.
