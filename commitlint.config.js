@@ -16,7 +16,7 @@ module.exports = {
          * parsed.type would be null, also for subject. So, I turn off
          * type-empty, subject-empty, type-enum...
          */
-        const headerRegex = /(((feat|fix|perf)(#\d+)?)|(build|chore|ci|docs|refactor|revert|style|test)): .+/
+        const headerRegex = /(((feat|fix|perf)([^\s]+)?)|(build|chore|ci|docs|refactor|revert|style|test)): .+/
         const isHeaderValid = parsed.header.match(headerRegex)
         if (isHeaderValid) {
           return [true]
